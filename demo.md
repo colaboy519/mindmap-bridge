@@ -1,0 +1,24 @@
+# Transformer Architecture
+
+- Attention Mechanism ⬡
+  - Self-Attention ✦ — each token attends to all others via learned projections
+    - Query, Key, Value ✦ — three linear projections of the input embedding
+    - Scaled Dot-Product ✦ — softmax(QK^T / sqrt(d_k)) * V prevents gradient saturation
+    - Why scaling? ★ — without sqrt(d_k), dot products grow large and softmax saturates
+  - Multi-Head Attention ✦ — parallel attention streams capture different relationships
+    - Each head learns different patterns ✦ — syntax vs semantics vs position
+    - Concat and project ○
+  - Cross-Attention ⬡ — decoder attends to encoder output for seq2seq tasks
+    - Keys and Values from encoder ○
+    - Queries from decoder ○
+- Positional Encoding ⬡
+  - Sinusoidal (original) ✦ — no learned params, generalizes to unseen lengths
+  - Learned Embeddings ○ — most common in practice
+  - RoPE ⬡ — rotary embeddings encode relative position, used in LLaMA and GPT-NeoX
+    - Why RoPE won? ★ — decays attention by relative distance, which matches how language works
+- Feed-Forward Network ○
+  - Two linear layers ○ — expand then compress, acts per-position independently
+  - Activation function ○ — GELU replaced ReLU in modern transformers
+- Layer Normalization ○
+  - Pre-norm vs Post-norm ⬡ — pre-norm trains more stably, post-norm may generalize better
+- Residual Connections ✦ — skip connections enable gradient flow through deep stacks
